@@ -54,7 +54,7 @@ Fill out the settings in ```config.ini``` and then run ```run_bot.py```. Log fil
 
 ---
 
-## Example
+## Example config.ini
 
 This will join the top *10* streamers with the name *john_logger_bot999*.
 
