@@ -43,7 +43,7 @@ Fill out the settings in ```config.ini``` and then run ```run_bot.py```. Log fil
 
 ### Config.ini Settings
 
-| Parameter                     | Description |
+| Parameters                     | Description |
 | --------------------     | -------------| 
 | `username`        | What the bot will call itself when joining the IRC server. Do not use the same name as a popular streamer, it *will* cause issues.| 
 | `token`           | The Twitch IRC requires an OAuth token for authentication. See https://twitchapps.com/tmi/ to get your own token. |  
