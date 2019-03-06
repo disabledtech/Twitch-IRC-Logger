@@ -205,4 +205,4 @@ dmypy.json
 
 .idea/
 logs/
-
+config.ini
