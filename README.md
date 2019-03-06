@@ -43,12 +43,12 @@ Fill out the settings in ```config.ini``` and then run ```run_bot.py```. Log fil
 
 ### Config.ini Settings
 
-| Parameter       | Description |
-| -------------   | -------------| 
-| `username`      | What the bot will call itself when joining the IRC server. Do not use the same name as a popular streamer, it *will* cause issues.| 
-| `token`         | The Twitch IRC requires an OAuth token for authentication. See https://twitchapps.com/tmi/ to get your own token. |  
-| `client_id`     | The Twitch API requires a ClientID for API access which we use to get a list of currently popular streamers. See https://dev.twitch.tv/docs/v5 to get your own client ID |
-| `channel_limit `| The number of IRC channels to join. Ex. If set to 20 the bot will join and log the 20 channels with the most viewers. *Max*: 100 |
+| Parameter                     | Description |
+| --------------------     | -------------| 
+| `username`        | What the bot will call itself when joining the IRC server. Do not use the same name as a popular streamer, it *will* cause issues.| 
+| `token`           | The Twitch IRC requires an OAuth token for authentication. See https://twitchapps.com/tmi/ to get your own token. |  
+| `client_id`       | The Twitch API requires a ClientID for API access which we use to get a list of currently popular streamers. See https://dev.twitch.tv/docs/v5 to get your own client ID |
+| `channel_limit `  | The number of IRC channels to join. Ex. If set to 20 the bot will join and log the 20 channels with the most viewers. *Max*: 100 |
 
 <br/>
 
