@@ -76,9 +76,9 @@ This will join the top *10* streamers with the name *john_logger_bot999*.
 `config.ini`
 
 
-`username = john_logger_bot999` <br/>
-`token = oauth:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` <br/>
-`client_id = xxxxxxxxxxxxxxxxxxxxxxxxxxx` <br/>
+`username   = john_logger_bot999` <br/>
+`token      = oauth:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` <br/>
+`client_id  = xxxxxxxxxxxxxxxxxxxxxxxxxxx` <br/>
 `channel_limit = 10` <br/>
 
 ---
