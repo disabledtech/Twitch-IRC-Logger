@@ -43,17 +43,10 @@ Fill out the settings in ```config.ini``` and then run ```run_bot.py```. Log fil
 
 ### Config.ini Settings
 
-| Parameters                     | Description |
-| --------------------     | -------------| 
-| `username`        | What the bot will call itself when joining the IRC server. Do not use the same name as a popular streamer, it *will* cause issues.| 
-| `token`           | The Twitch IRC requires an OAuth token for authentication. See https://twitchapps.com/tmi/ to get your own token. |  
-| `client_id`       | The Twitch API requires a ClientID for API access which we use to get a list of currently popular streamers. See https://dev.twitch.tv/docs/v5 to get your own client ID |
-| `channel_limit `  | The number of IRC channels to join. Ex. If set to 20 the bot will join and log the 20 channels with the most viewers. *Max*: 100 |
-
 <table>
     <tr>
-        <td>Parameter</td>
-        <td>Description</td>
+        <td><b>Parameter</b></td>
+        <td><b>Description</b></td>
     </tr>
     <tr>
         <td><strong>username</strong></td>
@@ -61,11 +54,11 @@ Fill out the settings in ```config.ini``` and then run ```run_bot.py```. Log fil
     </tr>
     <tr>
         <td><strong>token</strong></td>
-        <td>The Twitch IRC requires an OAuth token for authentication. See https://twitchapps.com/tmi/ to get your own token.</td>
+        <td>The Twitch IRC requires an OAuth token for authentication. See <a href="https://twitchapps.com/tmi/" target="_blank">here</a> to get your own token.</td>
     </tr>
     <tr>
         <td><strong>client_id</strong></td>
-        <td>The Twitch API requires a ClientID for API access which we use to get a list of currently popular streamers. See https://dev.twitch.tv/docs/v5 to get your own client ID</td>
+        <td>The Twitch API requires a ClientID for API access which we use to get a list of currently popular streamers. See the <a href="https://dev.twitch.tv/docs/v5" target="_blank">Twitch API docs</a> to get your own client ID</td>
     </tr>
     <tr>
         <td><strong>channel_limit</strong></td>
