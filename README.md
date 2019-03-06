@@ -50,7 +50,7 @@ Fill out the settings in ```config.ini``` and then run ```run_bot.py```. Log fil
     </tr>
     <tr>
         <td><strong>username</strong></td>
-        <td>What the bot will call itself when joining the IRC server. Do not use the same name as a popular streamer, it *will* cause issues.</td>
+        <td>What the bot will call itself when joining the IRC server. Do not use the same name as a popular streamer, it <b>will</b> cause issues.</td>
     </tr>
     <tr>
         <td><strong>token</strong></td>
