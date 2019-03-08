@@ -48,7 +48,7 @@ class TwitchBot(object):
         :param token:       The OAuth token used to join the Twitch IRC.
         :param client_id:   The client_id of your Twitch dev. application. See: https://dev.twitch.tv/docs/v5
         :param game:        The game that you want all streams to be playing. e.g. 'Overwatch'. Default: Any game ('').
-        :param refresh_interval: How often (in seconds) to call update() and get a new list of top streams. Default: 60
+        :param refresh_interval: How often (in seconds) to call __update() and get a new list of top streams. Default: 60
         :param limit:       The maximum numbers of streams to join. Default: 25 Max: 100
         """
 
@@ -106,7 +106,7 @@ class TwitchBot(object):
 
         self.sock_connection.send('PART {}\n'.format(channel).encode('utf-8'))
 
-    def update(self):
+    def __update(self):
         """
         Updates which channels we're logging. Fetches a new list of
         streams from __get_top_streamers() and compares it with our current
@@ -144,7 +144,7 @@ class TwitchBot(object):
         :return: None
         """
 
-        # A flag used to determine if it'stime to call update().
+        # A flag used to determine if it'stime to call __update().
         top_100_check = time.time()
 
         while True:
@@ -194,7 +194,7 @@ class TwitchBot(object):
                     top_100_check = time.time()
 
                     # Update our channel list.
-                    self.update()
+                    self.__update()
 
             # Shut down 'gracefully' on keyboard interrupt.
             except KeyboardInterrupt:
