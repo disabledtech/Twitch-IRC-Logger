@@ -137,70 +137,6 @@ class TwitchBot(object):
         # Update the list of channels we're currently in.
         self.channel_list = new_channels
 
-    def run(self):
-        """
-        Run the script until user interruption.
-
-        :return: None
-        """
-
-        # A flag used to determine if it'stime to call __update().
-        top_100_check = time.time()
-
-        while True:
-
-            try:
-
-                # Get response from the IRC server
-                try:
-
-                    response = decode(self.sock_connection.recv(2048), encoding='utf-8')
-
-                except UnicodeDecodeError:
-                    # TODO Handle this better
-                    # Sometimes this exception is raised, however it happens extremely
-                    # rarely (< ~0.1%) and is not significant unless it is absolutely critical
-                    # you do not miss anything. At the moment we simply skip over these errors.
-                    continue
-
-                # Sometimes in a busy channel many messages are received
-                # in one 'response' and we need to split them apart. See
-                # https://stackoverflow.com/q/28859961 for a longer and
-                # more detailed explanation by someone else with the
-                # same issue.
-                #
-                # All message end with '\r\n' so we can reliably count/split
-                # them this way.
-
-                line_count = response.count("\r\n")
-
-                if line_count > 1:
-
-                    messages = response.split("\r\n")
-
-                    for single_msg in messages:
-
-                        self.__log_message(single_msg)
-
-                else:
-
-                    self.__log_message(response)
-
-                # Check if the time now is more than the refresh_interval + the
-                # last time we checked the top 100.
-                if time.time() > top_100_check + self.refresh_interval:
-
-                    # Update the time we last checked to now.
-                    top_100_check = time.time()
-
-                    # Update our channel list.
-                    self.__update()
-
-            # Shut down 'gracefully' on keyboard interrupt.
-            except KeyboardInterrupt:
-
-                self.__close_connection()
-
     def __get_top_streamers(self):
         """
         Gets the 100 channels with the most current viewers. Uses the param
@@ -265,3 +201,67 @@ class TwitchBot(object):
         elif len(response) > 0 and self.username not in response:
 
             logging.info(response.rstrip('\r\r\n'))
+
+    def run(self):
+        """
+        Run the script until user interruption.
+
+        :return: None
+        """
+
+        # A flag used to determine if it'stime to call __update().
+        top_100_check = time.time()
+
+        while True:
+
+            try:
+
+                # Get response from the IRC server
+                try:
+
+                    response = decode(self.sock_connection.recv(2048), encoding='utf-8')
+
+                except UnicodeDecodeError:
+                    # TODO Handle this better
+                    # Sometimes this exception is raised, however it happens extremely
+                    # rarely (< ~0.1%) and is not significant unless it is absolutely critical
+                    # you do not miss anything. At the moment we simply skip over these errors.
+                    continue
+
+                # Sometimes in a busy channel many messages are received
+                # in one 'response' and we need to split them apart. See
+                # https://stackoverflow.com/q/28859961 for a longer and
+                # more detailed explanation by someone else with the
+                # same issue.
+                #
+                # All message end with '\r\n' so we can reliably count/split
+                # them this way.
+
+                line_count = response.count("\r\n")
+
+                if line_count > 1:
+
+                    messages = response.split("\r\n")
+
+                    for single_msg in messages:
+
+                        self.__log_message(single_msg)
+
+                else:
+
+                    self.__log_message(response)
+
+                # Check if the time now is more than the refresh_interval + the
+                # last time we checked the top 100.
+                if time.time() > top_100_check + self.refresh_interval:
+
+                    # Update the time we last checked to now.
+                    top_100_check = time.time()
+
+                    # Update our channel list.
+                    self.__update()
+
+            # Shut down 'gracefully' on keyboard interrupt.
+            except KeyboardInterrupt:
+
+                self.__close_connection()
