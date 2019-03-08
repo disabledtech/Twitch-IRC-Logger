@@ -6,7 +6,6 @@ def main():
     config = ConfigParser()
     config.read('config.ini')
 
-
     username = config['TWITCH_BOT_SETTINGS']['username']
     token = config['TWITCH_BOT_SETTINGS']['token']
     client_id = config['TWITCH_BOT_SETTINGS']['client_id']

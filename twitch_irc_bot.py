@@ -52,8 +52,8 @@ class TwitchBot(object):
         :param limit:       The maximum numbers of streams to join. Default: 25 Max: 100
         """
 
-        self.server = 'irc.chat.twitch.tv'  # Twitch IRC IP Address
-        self.port = 6667                    # Twitch IRC Port
+        self.__server = 'irc.chat.twitch.tv'  # Twitch IRC IP Address
+        self.__port = 6667                    # Twitch IRC Port
         self.username = username
         self.token = token
         self.client_id = client_id
@@ -63,12 +63,12 @@ class TwitchBot(object):
         self.limit = limit
 
         # Get an initial list of streams.
-        self.channel_list = self.get_top_streamers()
+        self.channel_list = self.__get_top_streamers()
 
         # Connect to the Twitch IRC.
-        self.connect()
+        self.__connect()
 
-    def connect(self):
+    def __connect(self):
         """
         Connect to the twitch.tv IRC server and then JOIN each IRC channel in self.channel_list
 
@@ -76,17 +76,17 @@ class TwitchBot(object):
         """
 
         self.sock_connection = socket.socket()
-        self.sock_connection.connect((self.server, self.port))
+        self.sock_connection.connect((self.__server, self.__port))
 
         self.sock_connection.send('PASS {}\n'.format(self.token).encode('utf-8'))
         self.sock_connection.send('NICK {}\n'.format(self.username).encode('utf-8'))
 
-        # Call join_channel() for all channels in the channel_list
+        # Call __join_channel() for all channels in the channel_list
         for channel in self.channel_list:
 
-            self.join_channel(channel)
+            self.__join_channel(channel)
 
-    def join_channel(self, channel):
+    def __join_channel(self, channel):
         """
         Joins the specified twitch.tv IRC channel
         :param channel: The twitch.tv IRC channel to join. Usually (always?) the caster's channel name.
@@ -96,7 +96,7 @@ class TwitchBot(object):
 
         self.sock_connection.send('JOIN #{}\n'.format(channel).encode('utf-8'))
 
-    def leave_channel(self, channel):
+    def __leave_channel(self, channel):
         """
         Leaves the specified twitch.tv IRC channel
         :param channel: The twitch.tv IRC channel to leave. Usually (always?) the caster's channel name.
@@ -109,15 +109,15 @@ class TwitchBot(object):
     def update(self):
         """
         Updates which channels we're logging. Fetches a new list of
-        streams from get_top_streamers() and compares it with our current
+        streams from __get_top_streamers() and compares it with our current
         list of streams. Compares the lists to get which streams have
-        entered/left the top 100. Calls leave_channel/join_channel on
+        entered/left the top 100. Calls __leave_channel/__join_channel on
         these lists as needed.
 
         :return: None
         """
 
-        new_channels = self.get_top_streamers()
+        new_channels = self.__get_top_streamers()
         old_channels = self.channel_list
 
         # Compares the stream lists to find which streams to join/leave.
@@ -127,12 +127,12 @@ class TwitchBot(object):
         # Leave streams in not in top 100
         for channel in channels_to_leave:
 
-            self.leave_channel(channel)
+            self.__leave_channel(channel)
 
         # Join streams new to the top 100
         for channel in channels_to_join:
 
-            self.join_channel(channel)
+            self.__join_channel(channel)
 
         # Update the list of channels we're currently in.
         self.channel_list = new_channels
@@ -180,11 +180,11 @@ class TwitchBot(object):
 
                     for single_msg in messages:
 
-                        self.log_message(single_msg)
+                        self.__log_message(single_msg)
 
                 else:
 
-                    self.log_message(response)
+                    self.__log_message(response)
 
                 # Check if the time now is more than the refresh_interval + the
                 # last time we checked the top 100.
@@ -199,9 +199,9 @@ class TwitchBot(object):
             # Shut down 'gracefully' on keyboard interrupt.
             except KeyboardInterrupt:
 
-                self.close_connection()
+                self.__close_connection()
 
-    def get_top_streamers(self):
+    def __get_top_streamers(self):
         """
         Gets the 100 channels with the most current viewers. Uses the param
         settings from initialization (self.game, self.limit) to determine
@@ -230,7 +230,7 @@ class TwitchBot(object):
 
         return names
 
-    def close_connection(self):
+    def __close_connection(self):
         """
         Close our socket connection.
 
@@ -242,7 +242,7 @@ class TwitchBot(object):
 
         exit(0)
 
-    def log_message(self, response):
+    def __log_message(self, response):
         """
         Save a valid message to your logs. A valid message is one that is
         NOT a PING from the server, IS greater than 0 in length, and
